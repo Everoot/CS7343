@@ -1,0 +1,3 @@
+/Users/eve/Desktop/CS7343_Operating_System_and_Software_System/Assignments/HW5/Project_2/Code/C/cmake-build-debug/CMakeFiles/C.dir
+/Users/eve/Desktop/CS7343_Operating_System_and_Software_System/Assignments/HW5/Project_2/Code/C/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/eve/Desktop/CS7343_Operating_System_and_Software_System/Assignments/HW5/Project_2/Code/C/cmake-build-debug/CMakeFiles/rebuild_cache.dir

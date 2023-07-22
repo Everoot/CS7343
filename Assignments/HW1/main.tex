@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\newenvironment{sol}[1][Solution]{\begin{trivlist}\item[\hskip\labelsep {\bfseries #1:}]}{\end{trivlist}}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{color}
+\title{Southern Methodist University \\
+Bobby B. Lyle School of Engineering Department of Computer Science \\
+Homework 1
+}
+
+\author{Operating System and Software System \\
+Name: Bingying Liang 
+\\ ID: 48999397\\ 
+Email: bingyingl@smu.edu \\ 
+CS7343 Distance}
+\date{February 2 2023}
+
+\begin{document}
+
+\maketitle
+\begin{itemize}
+    \item Include a front page with course title, your name, Student ID, your e-mail address, and the course number (e.g. CS 5343 or CS 7343). You must also indicate whether you are a distance student or an in-person student.
+
+    \item Each answer should begin in a new page.
+    \item \textcolor{red}{Note:}
+    \begin{itemize}
+        \item[$\circ$] There will be 10 points deduction if this information is missing.
+        \item[$\circ$] Late Homework submission must be sent directly to the grader via email.
+    \end{itemize}
+\begin{enumerate}
+    \item \textcolor{red}{All students who are signed for this course at the CS 7343 must answer all questions.}
+    \item  \textcolor{red}{All students who are signed for this course at the CS 5343 must answer exactly four questions.}
+\end{enumerate}
+\item Questions 1.5, 1.6, 1.10, 2.9, and 2.15 of the text book.
+\end{itemize}
+\newpage
+\begin{enumerate}
+    \item 1.5 How does the distinction between kernel mode and user mode function as a rudimentary form of protection (security)?
+    \begin{sol}
+    \hspace*{\fill} \\
+    \\
+    Certain instructions, like privileged instructions, can be executed only when the CPU is in kernel mode. If any attempt is made to execute a privileged instruction in User Mode, then it will not be executed and treated as an illegal instruction and traps it to the operating system. And hardware devices can be accessed only when the program is in kernel mode, and also the interrupts can be enable or disabled only when the CPU is in kernel mode. In this way, limit some bad things will bring the protection. And during the kernel mode, it will use a lot of the capability of the CUP, therefore, the CPU has very limited for user mode, and then it will protect the critical resources.
+    \end{sol}
+    \newpage
+    \item 1.6 Which of the following instructions should be privileged? 
+    \begin{enumerate}
+        \item Set value of timer.
+        \item Read the clock.
+        \item Clear memory.
+        \item Issue a trap instruction.
+        \item Turn off interrupts.
+        \item Modify entries in device-status table.
+        \item Switch from user to kernel mode.
+        \item Access I/O device.
+    \end{enumerate}
+    \begin{sol}
+        \hspace*{\fill} \\
+        \\
+        The following instructions should be privileged:
+        \begin{enumerate}
+            \item[(a)] Set value of timer.
+            \item[(c)] Clear memory.
+            \item[(e)] Turn off interrupts.
+            \item[(f)] Modify entries in device-status table.
+            \item[(h)] Access I/O device.
+        \end{enumerate}
+    \end{sol}
+    \newpage
+
+    \item 1.10 Give two reasons why caches are useful. What problems do they solve? What problems do they cause? If a cache can be made as large as the device for which it is caching (for instance, a cache as large as a disk), why not make it that large and eliminate the device?
+    \begin{sol}
+    \hspace*{\fill} \\
+    \\
+\textbf{    Two reasons of why caches are useful:}\\
+ (1) Fast access speed,  it can help system to hold the instructions expected to be executed next, and help CPU do not wait several cycles while an instruction was fetched from main memory. And When two or more components need to exchange data, and the components perform transfers at differing speeds. \\
+(2) The performance improve without costing too much space: caches bring high speed so without taking up as much physical space as the lower elements of the memory hierarchy. \\
+
+\textbf{Problems they solve:\\ }
+The transfer problem: Caches solve the transfer problem by providing a buffer of intermediate speed between the components. If the fast device finds the data it needs in the cache, it need not wait for the slower device. \\
+The performance problem: Caches ameliorate the performance critical of memory access time by leveraging spatial and temporal locality. \\
+
+\textbf{Problems they cause: }\\
+Caches also introduce an additional level of complexity which are coherency and consistency assurance. And they will also incur an economic and space at the computer organization level penalty when add a cache. And Caches are volatile storage, if the power is turned off otherwise lost it cannot hold the program, it is not very reliable for some situation. The data in the cache must be kept consistent with the data in the components. If a component has a data value change, and the datum is also in the cache, the cache must also be updated. \\
+
+\textbf{Reasons of why not make it that large and eliminate the device:  }\\
+Ineffective, because it would be too costly, the immense size would slow it down, and a cache is generally a volatile memory, while we want data on disks to be persistent.
+    \end{sol}
+    \newpage
+
+    \item 2.9 The services and functions provided by an operating system can be divided into two main categories. Briefly describe the two categories, and discuss how they differ.
+    \begin{sol}
+    \hspace*{\fill} \\
+    \\
+    (1) For users: Functions and services which are directly helpful to the user, like User interface, Program excution, I/O operatios, File-system manipulation, communications, networking, computer sharing, error detection, consistent computing.
+    
+(2) For system itself: Ensuring the efficient operation of the system. Systems with multiple processes can gain efficiency by sharing the computer resources among the different processes. Functions and resources which ensure efficient operation through resource sharing, resource allocation, user account tracking, and protection or security.
+    \end{sol}
+    \newpage
+
+    \item 2.15 What are the two models of interprocess communication? What are the strengths and weaknesses of the two approaches?
+    \begin{sol}
+        \hspace*{\fill} \\
+        \\
+    (1) Message-passing model \\
+    Shared-memory strengths and weaknesses: it allows higher speed and convenience of communication. However, in the areas of protection and synchronization between the processes some problems exist.\\
+    \\
+    (2) Shared-memory model\\
+    Message-passing strengths and weaknesses: message can be exchanged between the processes either directly or indirectly through a common mailbox. It is useful for exchanging smaller amounts of data and easier to implement for inter-computer communication. However, its speed is slower than shared-memory model.
+
+
+
+
+    \end{sol}
+\end{enumerate}
+\end{document}

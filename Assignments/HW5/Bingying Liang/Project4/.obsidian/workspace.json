@@ -1,0 +1,157 @@
+{
+  "main": {
+    "id": "fe3054f183e499dd",
+    "type": "split",
+    "children": [
+      {
+        "id": "7375336a56620988",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f1c9125a77ba756d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Project 4 The Producer-Consumer Problem.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f9e148dd361daad2",
+    "type": "split",
+    "children": [
+      {
+        "id": "efb021c091f426ae",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6a326412d08f1fbb",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "96324ea5b3683b28",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "2813c1ac4c7b06c6",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "49411c5ec360590f",
+    "type": "split",
+    "children": [
+      {
+        "id": "1f45ad50fbbc8ad6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0567f0fe9ec2b2df",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Project 4 The Producer-Consumer Problem.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "28f9683e054c9f11",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Project 4 The Producer-Consumer Problem.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "cf1e6badf6e0b96d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "2286a3c86703475d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Project 4 The Producer-Consumer Problem.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "f1c9125a77ba756d",
+  "lastOpenFiles": [
+    "Project 4 The Producer-Consumer Problem.assets/Screenshot 2023-04-08 at 04.36.23.png",
+    "Project 4 The Producer-Consumer Problem.assets",
+    "Screenshot 2023-04-08 at 04.36.23.png",
+    "Project 4 The Producer-Consumer Problem.md",
+    "C.md"
+  ]
+}

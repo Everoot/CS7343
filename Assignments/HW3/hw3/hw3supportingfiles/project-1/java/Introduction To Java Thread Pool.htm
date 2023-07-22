@@ -1,0 +1,1360 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="pingback" href="https://xperti.io/blogs/xmlrpc.php" />
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+        
+	<!-- This site is optimized with the Yoast SEO plugin v14.7 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Introduction To Java Thread Pool</title>
+	<meta name="description" content="Java thread pool is a useful feature as it reuses the existing threads by creating a pool of them. Find out how you can implement it in your java code." />
+	<meta name="robots" content="index, follow" />
+	<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<link rel="canonical" href="https://xperti.io/blogs/thread-pools-java-introduction/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Introduction To Java Thread Pool" />
+	<meta property="og:description" content="Java thread pool is a useful feature as it reuses the existing threads by creating a pool of them. Find out how you can implement it in your java code." />
+	<meta property="og:url" content="https://xperti.io/blogs/thread-pools-java-introduction/" />
+	<meta property="og:site_name" content="Blogs" />
+	<meta property="article:publisher" content="https://www.facebook.com/xperti.io/" />
+	<meta property="article:published_time" content="2021-09-14T17:46:07+00:00" />
+	<meta property="article:modified_time" content="2022-05-09T08:23:51+00:00" />
+	<meta property="og:image" content="https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="628" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Introduction To Java Thread Pool" />
+	<meta name="twitter:description" content="Java thread pool is a useful feature as it reuses the existing threads by creating a pool of them. Find out how you can implement it in your java code." />
+	<meta name="twitter:image" content="https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools.png" />
+	<meta name="twitter:creator" content="@xperti1" />
+	<meta name="twitter:site" content="@xperti1" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://xperti.io/blogs/#organization","name":"Xperti","url":"https://xperti.io/blogs/","sameAs":["https://www.facebook.com/xperti.io/","https://www.instagram.com/xperti.io/","https://www.linkedin.com/company/xperti/","https://twitter.com/xperti1"],"logo":{"@type":"ImageObject","@id":"https://xperti.io/blogs/#logo","inLanguage":"en-US","url":"https://xperti.io/blogs/wp-content/uploads/2020/02/Fav_icon.jpg","width":492,"height":497,"caption":"Xperti"},"image":{"@id":"https://xperti.io/blogs/#logo"}},{"@type":"WebSite","@id":"https://xperti.io/blogs/#website","url":"https://xperti.io/blogs/","name":"Blogs","description":"","publisher":{"@id":"https://xperti.io/blogs/#organization"},"potentialAction":[{"@type":"SearchAction","target":"https://xperti.io/blogs/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://xperti.io/blogs/thread-pools-java-introduction/#primaryimage","inLanguage":"en-US","url":"https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools.png","width":1200,"height":628,"caption":"thread pools"},{"@type":"WebPage","@id":"https://xperti.io/blogs/thread-pools-java-introduction/#webpage","url":"https://xperti.io/blogs/thread-pools-java-introduction/","name":"Introduction To Java Thread Pool","isPartOf":{"@id":"https://xperti.io/blogs/#website"},"primaryImageOfPage":{"@id":"https://xperti.io/blogs/thread-pools-java-introduction/#primaryimage"},"datePublished":"2021-09-14T17:46:07+00:00","dateModified":"2022-05-09T08:23:51+00:00","description":"Java thread pool is a useful feature as it reuses the existing threads by creating a pool of them. Find out how you can implement it in your java code.","inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://xperti.io/blogs/thread-pools-java-introduction/"]}]},{"@type":"Article","@id":"https://xperti.io/blogs/thread-pools-java-introduction/#article","isPartOf":{"@id":"https://xperti.io/blogs/thread-pools-java-introduction/#webpage"},"author":{"@id":"https://xperti.io/blogs/#/schema/person/408a0a7ecc812c14afb7e9432e89e3fd"},"headline":"Introduction To Thread Pools In Java","datePublished":"2021-09-14T17:46:07+00:00","dateModified":"2022-05-09T08:23:51+00:00","mainEntityOfPage":{"@id":"https://xperti.io/blogs/thread-pools-java-introduction/#webpage"},"commentCount":0,"publisher":{"@id":"https://xperti.io/blogs/#organization"},"image":{"@id":"https://xperti.io/blogs/thread-pools-java-introduction/#primaryimage"},"keywords":"thread pool java,thread pools java","articleSection":"Blog","inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://xperti.io/blogs/thread-pools-java-introduction/#respond"]}]},{"@type":["Person"],"@id":"https://xperti.io/blogs/#/schema/person/408a0a7ecc812c14afb7e9432e89e3fd","name":"Shaharyar Lalani","image":{"@type":"ImageObject","@id":"https://xperti.io/blogs/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/4751ee9fa96ae3c6482bc63f733e5827?s=96&d=mm&r=g","caption":"Shaharyar Lalani"},"description":"Shaharyar Lalani is a developer with a strong interest in business analysis, project management, and UX design. He writes and teaches extensively on themes current in the world of web and app development, especially in Java technology."}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Blogs &raquo; Feed" href="https://xperti.io/blogs/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Blogs &raquo; Comments Feed" href="https://xperti.io/blogs/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Blogs &raquo; Introduction To Thread Pools In Java Comments Feed" href="https://xperti.io/blogs/thread-pools-java-introduction/feed/" />
+		<!-- This site uses the Google Analytics by MonsterInsights plugin v7.17.0 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+							<script src="//www.googletagmanager.com/gtag/js?id=UA-148648974-1"  type="text/javascript" data-cfasync="false"></script>
+			<script type="text/javascript" data-cfasync="false">
+				var mi_version = '7.17.0';
+				var mi_track_user = true;
+				var mi_no_track_reason = '';
+				
+								var disableStr = 'ga-disable-UA-148648974-1';
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					return document.cookie.indexOf( disableStr + '=true' ) > - 1;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if ( __gtagTrackerIsOptedOut() ) {
+					window[disableStr] = true;
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+					window[disableStr] = true;
+				}
+
+				if ( 'undefined' === typeof gaOptout ) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+				if ( mi_track_user ) {
+					function __gtagTracker() {dataLayer.push( arguments );}
+					__gtagTracker( 'js', new Date() );
+					__gtagTracker( 'set', {
+						'developer_id.dZGIzZG' : true,
+						                    });
+					__gtagTracker( 'config', 'UA-148648974-1', {
+						forceSSL:true,link_attribution:true,					} );
+										window.gtag = __gtagTracker;										(
+						function () {
+							/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+							/* ga and __gaTracker compatibility shim. */
+							var noopfn = function () {
+								return null;
+							};
+							var newtracker = function () {
+								return new Tracker();
+							};
+							var Tracker = function () {
+								return null;
+							};
+							var p = Tracker.prototype;
+							p.get = noopfn;
+							p.set = noopfn;
+							p.send = function (){
+								var args = Array.prototype.slice.call(arguments);
+								args.unshift( 'send' );
+								__gaTracker.apply(null, args);
+							};
+							var __gaTracker = function () {
+								var len = arguments.length;
+								if ( len === 0 ) {
+									return;
+								}
+								var f = arguments[len - 1];
+								if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
+									if ( 'send' === arguments[0] ) {
+										var hitConverted, hitObject = false, action;
+										if ( 'event' === arguments[1] ) {
+											if ( 'undefined' !== typeof arguments[3] ) {
+												hitObject = {
+													'eventAction': arguments[3],
+													'eventCategory': arguments[2],
+													'eventLabel': arguments[4],
+													'value': arguments[5] ? arguments[5] : 1,
+												}
+											}
+										}
+										if ( typeof arguments[2] === 'object' ) {
+											hitObject = arguments[2];
+										}
+										if ( typeof arguments[5] === 'object' ) {
+											Object.assign( hitObject, arguments[5] );
+										}
+										if ( 'undefined' !== typeof (
+											arguments[1].hitType
+										) ) {
+											hitObject = arguments[1];
+										}
+										if ( hitObject ) {
+											action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+											hitConverted = mapArgs( hitObject );
+											__gtagTracker( 'event', action, hitConverted );
+										}
+									}
+									return;
+								}
+
+								function mapArgs( args ) {
+									var gaKey, hit = {};
+									var gaMap = {
+										'eventCategory': 'event_category',
+										'eventAction': 'event_action',
+										'eventLabel': 'event_label',
+										'eventValue': 'event_value',
+										'nonInteraction': 'non_interaction',
+										'timingCategory': 'event_category',
+										'timingVar': 'name',
+										'timingValue': 'value',
+										'timingLabel': 'event_label',
+									};
+									for ( gaKey in gaMap ) {
+										if ( 'undefined' !== typeof args[gaKey] ) {
+											hit[gaMap[gaKey]] = args[gaKey];
+										}
+									}
+									return hit;
+								}
+
+								try {
+									f.hitCallback();
+								} catch ( ex ) {
+								}
+							};
+							__gaTracker.create = newtracker;
+							__gaTracker.getByName = newtracker;
+							__gaTracker.getAll = function () {
+								return [];
+							};
+							__gaTracker.remove = noopfn;
+							__gaTracker.loaded = true;
+							window['__gaTracker'] = __gaTracker;
+						}
+					)();
+									} else {
+										console.log( "" );
+					( function () {
+							function __gtagTracker() {
+								return null;
+							}
+							window['__gtagTracker'] = __gtagTracker;
+							window['gtag'] = __gtagTracker;
+					} )();
+									}
+			</script>
+				<!-- / Google Analytics by MonsterInsights -->
+				<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/xperti.io\/blogs\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.4.10"}};
+			/*! This file is auto-generated */
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://xperti.io/blogs/wp-includes/css/dist/block-library/style.min.css?ver=5.4.10' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='https://xperti.io/blogs/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.2' type='text/css' media='all' />
+<link rel='stylesheet' id='egcf-style-css'  href='https://xperti.io/blogs/wp-content/plugins/easy-gdpr-consent-mailchimp/css/main.css?ver=1.0.1' type='text/css' media='all' />
+<link rel='stylesheet' id='ez-icomoon-css'  href='https://xperti.io/blogs/wp-content/plugins/easy-table-of-contents/vendor/icomoon/style.min.css?ver=2.0.11' type='text/css' media='all' />
+<link rel='stylesheet' id='ez-toc-css'  href='https://xperti.io/blogs/wp-content/plugins/easy-table-of-contents/assets/css/screen.min.css?ver=2.0.11' type='text/css' media='all' />
+<style id='ez-toc-inline-css' type='text/css'>
+div#ez-toc-container p.ez-toc-title {font-size: 120%;}div#ez-toc-container p.ez-toc-title {font-weight: 500;}div#ez-toc-container ul li {font-size: 95%;}
+</style>
+<link rel='stylesheet' id='cheerup-fonts-css'  href='https://fonts.googleapis.com/css?family=Karla%3A400%2C400i%2C600%7CLora%3A400i' type='text/css' media='all' />
+<link rel='stylesheet' id='cheerup-core-css'  href='https://xperti.io/blogs/wp-content/themes/cheerup/style.css?ver=6.1.2' type='text/css' media='all' />
+<link rel='stylesheet' id='magnific-popup-css'  href='https://xperti.io/blogs/wp-content/themes/cheerup/css/lightbox.css?ver=6.1.2' type='text/css' media='all' />
+<link rel='stylesheet' id='cheerup-font-awesome-css'  href='https://xperti.io/blogs/wp-content/themes/cheerup/css/fontawesome/css/font-awesome.min.css?ver=6.1.2' type='text/css' media='all' />
+<link rel='stylesheet' id='cheerup-skin-css'  href='https://xperti.io/blogs/wp-content/themes/cheerup/css/skin-fitness.css?ver=6.1.2' type='text/css' media='all' />
+<style id='cheerup-skin-inline-css' type='text/css'>
+
+
+@media (min-width: 768px) {
+  .main-head.nav-below .title {
+    padding-bottom: 40px;
+  }
+}
+</style>
+<link rel='stylesheet' id='cheerup-font-renner-css'  href='https://xperti.io/blogs/wp-content/themes/cheerup/css/fonts/renner.css?ver=6.1.2' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='https://xperti.io/blogs/wp-includes/css/dashicons.min.css?ver=5.4.10' type='text/css' media='all' />
+<link rel='stylesheet' id='zoom-instagram-widget-css'  href='https://xperti.io/blogs/wp-content/plugins/instagram-widget-by-wpzoom/css/instagram-widget.css?ver=1.7.0' type='text/css' media='all' />
+<link rel='stylesheet' id='tablepress-default-css'  href='https://xperti.io/blogs/wp-content/plugins/tablepress/css/default.min.css?ver=1.11' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='vc_lte_ie9-css'  href='https://xperti.io/blogs/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css?ver=6.0.5' type='text/css' media='screen' />
+<![endif]-->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","download_extensions":"doc,pdf,ppt,zip,xls,docx,pptx,xlsx","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"https:\/\/xperti.io\/blogs","hash_tracking":"false","ua":"UA-148648974-1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/google-analytics-for-wordpress/assets/js/frontend-gtag.min.js?ver=7.17.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var Sphere_Plugin = {"ajaxurl":"https:\/\/xperti.io\/blogs\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var EGCF_Plugin = {"ajax_url":"https:\/\/xperti.io\/blogs\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/easy-gdpr-consent-mailchimp/js/main.js?ver=1.0.1'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/instagram-widget-by-wpzoom/js/jquery.lazy.min.js?ver=1.4.2'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-includes/js/underscore.min.js?ver=1.8.3'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpUtilSettings = {"ajax":{"url":"\/blogs\/wp-admin\/admin-ajax.php"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-includes/js/wp-util.min.js?ver=5.4.10'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/instagram-widget-by-wpzoom/js/instagram-widget.js?ver=1.7.1'></script>
+<link rel='https://api.w.org/' href='https://xperti.io/blogs/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://xperti.io/blogs/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://xperti.io/blogs/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.4.10" />
+<link rel='shortlink' href='https://xperti.io/blogs/?p=2934' />
+<link rel="alternate" type="application/json+oembed" href="https://xperti.io/blogs/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://xperti.io/blogs/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F&#038;format=xml" />
+<script>
+		document.head.innerHTML += '<style id="egcf-disable-submit">input[type=submit], button[type=submit] { pointer-events: none; } form { cursor: progress !important; }</style>';
+		</script><script id='pixel-script-poptin' src='https://cdn.popt.in/pixel.js?id=6b2a237340ba0' async='true'></script>  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148648974-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-148648974-1');
+</script>
+
+ 
+<link rel="icon" href="https://xperti.io/blogs/wp-content/uploads/2020/11/fav_icon-1.png" sizes="32x32" />
+<link rel="icon" href="https://xperti.io/blogs/wp-content/uploads/2020/11/fav_icon-1.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://xperti.io/blogs/wp-content/uploads/2020/11/fav_icon-1.png" />
+<meta name="msapplication-TileImage" content="https://xperti.io/blogs/wp-content/uploads/2020/11/fav_icon-1.png" />
+		<!-- Facebook Pixel Code -->
+		<script>
+						!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+				n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+				n.push=n;n.loaded=!0;n.version='2.0';n.agent='dvpixelcaffeinewordpress';n.queue=[];t=b.createElement(e);t.async=!0;
+				t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+				document,'script','https://connect.facebook.net/en_US/fbevents.js');
+			
+			var aepc_pixel = {"pixel_id":"293502075179754","user":{},"enable_advanced_events":"yes","fire_delay":"0"},
+				aepc_pixel_args = {},
+				aepc_extend_args = function( args ) {
+					if ( typeof args === 'undefined' ) {
+						args = {};
+					}
+
+					for(var key in aepc_pixel_args)
+						args[key] = aepc_pixel_args[key];
+
+					return args;
+				};
+
+			// Extend args
+			if ( 'yes' === aepc_pixel.enable_advanced_events ) {
+				aepc_pixel_args.language = navigator.language;
+
+				if ( document.referrer.indexOf( document.domain ) < 0 ) {
+					aepc_pixel_args.referrer = document.referrer;
+				}
+			}
+
+						fbq('init', '293502075179754', aepc_pixel.user);
+
+						setTimeout( function() {
+				fbq('track', "PageView", aepc_pixel_args);
+			}, aepc_pixel.fire_delay * 1000 );
+					</script>
+				<noscript><img height="1" width="1" style="display:none"
+		               src="https://www.facebook.com/tr?id=293502075179754&ev=PageView&noscript=1"
+			/></noscript>
+				<!-- End Facebook Pixel Code -->
+		<noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>        <link rel="stylesheet" type="text/css" href='https://xperti.io/blogs/wp-content/themes/cheerup/assets/css/slicknavmin.css'>
+        <link rel="stylesheet" href='https://xperti.io/blogs/wp-content/themes/cheerup/assets/css/bootstrap.min.css' >
+        <link rel="stylesheet" type="text/css" href='https://xperti.io/blogs/wp-content/themes/cheerup/assets/css/style.css'>
+        <link href="https://fonts.googleapis.com/css?family=Lato|Rubik&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,800,800i&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
+        <nav class="headerSticky">
+            <div class="container-fluid">
+                <div class="row flex">
+                    <div class="col-md-2">
+                        <a href="/"><img class="img-responsive " src='https://xperti.io/blogs/wp-content/themes/cheerup/assets/images/logo.png'></a>
+                    </div>
+
+                    <div class="col-md-6">
+                        <ul class="list-inline menu">
+							<li><a href="https://xperti.io/clients.php">Employers</a></li>
+							<li><a href="https://xperti.io/experts.php">Job Seekers</a></li>
+							<li><a href="https://xperti.io/blogs/">Blog</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="bottons-header">
+                            <!--<a href="" class="btn-blue">Hire an Xperti</a>
+                            <a href="" class="btn-blue">Hire an Xperti</a>-->
+							<button class="button success invert" type="button" onclick="window.location.href = 'https://xperti.io/hire-an-xperti.php';">Hire Engineers</button>
+                            <button class="button success" type="button"  onclick="window.location.href = 'https://xperti.io/jobs';">Find Work</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- slicknav -->
+        <ul id="menu" class="slicknav_menu list-inline menu">
+            <li><a href="https://xperti.io/clients.php">Employers</a></li>
+			<li><a href="https://xperti.io/experts.php">Job Seekers</a></li>
+			<li><a href="https://xperti.io/blogs/">Blog</a></li>
+			<li><a href="https://xperti.io/hire-an-xperti.php">Hire Engineers</a></li>
+			<li><a href="https://xperti.io/jobs">Find Work</a></li>
+        </ul>
+
+        <!-- slicknav -->
+        <style>
+            .menu li a::after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 1px;
+                background: #a9a9a9;
+                transform: scaleX(0);
+                transition: transform .2s cubic-bezier(0.7, 0, 0.4, 1);
+            }
+            .menu li a:hover::after {
+                width: 100%;
+                /*transition: width .3s;*/
+                transform: scaleX(1);
+            }
+        </style>
+
+    </head>
+    <body class="post-template-default single single-post postid-2934 single-format-standard right-sidebar  skin-fitness wpb-js-composer js-comp-ver-6.0.5 vc_responsive">
+<div class="main wrap">
+
+	<div class="ts-row cf">
+		<div class="col-8 main-content cf">
+		
+			
+				
+<article id="post-2934" class="the-post post-2934 post type-post status-publish format-standard has-post-thumbnail category-blog tag-thread-pool-java tag-thread-pools-java">
+	
+	<header class="post-header the-post-header cf">
+			
+			<div class="post-meta post-meta-alt the-post-meta">
+		
+				
+			<span class="post-cat">	
+									
+		<a href="https://xperti.io/blogs/category/blog/" class="category">Blog</a>
+
+					</span>
+			
+				
+		
+		<h1 class="post-title">
+			Introduction To Thread Pools In Java			
+		</h1>
+		
+			
+					<a href="https://xperti.io/blogs/thread-pools-java-introduction/" class="date-link"><time class="post-date">September 14, 2021</time></a>
+				
+	</div>
+
+			
+	<div class="featured">
+	
+				
+					
+			<a href="https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools.png" class="image-link"><img width="770" height="403" src="https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools-1024x536.png" class="attachment-large size-large wp-post-image" alt="thread pools" title="Introduction To Thread Pools In Java" srcset="https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools-1024x536.png 1024w, https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools-300x157.png 300w, https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools-768x402.png 768w, https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-ThreadPools.png 1200w" sizes="(max-width: 770px) 100vw, 770px" />			</a>
+			
+				
+	</div>
+		
+	</header><!-- .post-header -->
+
+				
+					<div>
+				
+	
+	<div class="post-share-float share-float-a is-hidden cf">
+	
+					<span class="share-text">Share</span>
+		
+		<div class="services">
+		
+				
+			<a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F" class="cf service facebook" target="_blank" title="Share on Facebook">
+				<i class="fa fa-facebook"></i>
+				<span class="label">Share on Facebook</span>
+			</a>
+				
+				
+			<a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F&#038;text=Introduction%20To%20Thread%20Pools%20In%20Java" class="cf service twitter" target="_blank" title="Share on Twitter">
+				<i class="fa fa-twitter"></i>
+				<span class="label">Share on Twitter</span>
+			</a>
+				
+				
+			<a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F&#038;media=https%3A%2F%2Fxperti.io%2Fblogs%2Fwp-content%2Fuploads%2F2021%2F09%2FXblog-ThreadPools.png&#038;description=Introduction%20To%20Thread%20Pools%20In%20Java" class="cf service pinterest" target="_blank" title="Pinterest">
+				<i class="fa fa-pinterest-p"></i>
+				<span class="label">Pinterest</span>
+			</a>
+				
+				
+			<a href="mailto:?subject=Introduction%20To%20Thread%20Pools%20In%20Java&#038;body=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F" class="cf service email" target="_blank" title="Email">
+				<i class="fa fa-envelope-o"></i>
+				<span class="label">Email</span>
+			</a>
+				
+				
+		</div>
+		
+	</div>
+	
+			</div>
+		
+		<div class="post-content description cf entry-content has-share-float content-spacious">
+
+
+			<div id="ez-toc-container" class="ez-toc-v2_0_11 counter-hierarchy counter-decimal ez-toc-grey">
+<div class="ez-toc-title-container">
+<p class="ez-toc-title">Table of Contents</p>
+<span class="ez-toc-title-toggle"><a class="ez-toc-pull-right ez-toc-btn ez-toc-btn-xs ez-toc-btn-default ez-toc-toggle"><i class="ez-toc-glyphicon ez-toc-icon-toggle"></i></a></span></div>
+<nav><ul class="ez-toc-list ez-toc-list-level-1"><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-1" href="#Overview" title="Overview">Overview</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-2" href="#Java_thread_pool" title="Java thread pool">Java thread pool</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-3" href="#Java_thread_pool_implementation" title="Java thread pool implementation">Java thread pool implementation</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-4" href="#Risks_associated_with_using_Java_thread_pool" title="Risks associated with using Java thread pool">Risks associated with using Java thread pool</a><ul class="ez-toc-list-level-3"><li class="ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-5" href="#%C2%B7_Occurrence_of_a_deadlock" title="· Occurrence of a deadlock:">· Occurrence of a deadlock:</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-6" href="#%C2%B7_Thread_leaking_out_of_thread_pool" title="· Thread leaking out of thread pool:">· Thread leaking out of thread pool:</a></li><li class="ez-toc-page-1 ez-toc-heading-level-3"><a class="ez-toc-link ez-toc-heading-7" href="#%C2%B7_Resources_thrashing" title="· Resources thrashing:">· Resources thrashing:</a></li></ul></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-8" href="#Conclusion" title="Conclusion">Conclusion</a></li></ul></nav></div>
+<h2><span class="ez-toc-section" id="Overview"></span>Overview<span class="ez-toc-section-end"></span></h2>
+<p>Programs that run on databases and web servers keep executing requests from multiple clients continuously. These programs are designed to process a large number of very short tasks. One of the approaches to building a server application is to create a new thread each time a new request is received and service this new request in the just created thread. Although this approach seems right and very simple, it comes with some significant disadvantages. A server that would create a new thread for every request would consume more time and system resources in just creating and destroying threads repeatedly than on processing actual requests. Also, the JVM creating this many threads in a short time will quickly run out of memory. Due to these reasons, It is extremely important to limit the number of threads being created by JVM. This is where the Java thread pool comes into play.</p>
+<p><a href="https://xperti.io/jobs/"><img class="aligncenter wp-image-3395 size-full" src="https://xperti.io/blogs/wp-content/uploads/2022/04/CTABanner2.4.png" alt="new java job roles" width="710" height="172" srcset="https://xperti.io/blogs/wp-content/uploads/2022/04/CTABanner2.4.png 710w, https://xperti.io/blogs/wp-content/uploads/2022/04/CTABanner2.4-300x73.png 300w" sizes="(max-width: 710px) 100vw, 710px" /></a></p>
+<h2><span class="ez-toc-section" id="Java_thread_pool"></span>Java thread pool<span class="ez-toc-section-end"></span></h2>
+<p>A thread pool in <a href="https://www.java.com/en/">Java</a> reuses the previously created threads to execute new requests. This also solves the problem of thread cycle overhead and running out of resources. Since the threads already exist, when a new request arrives, the delay due to the creation of a new thread is now eliminated, making the application significantly more responsive. Additionally, using Java thread pools can make it easier to control the number of threads that are active at a time.</p>
+<h2><span class="ez-toc-section" id="Java_thread_pool_implementation"></span>Java thread pool implementation<span class="ez-toc-section-end"></span></h2>
+<p>Java provides a framework called Executor. It consists of the Executor interface, its sub-interface called ExecutorService, and the class, ThreadPoolExecutor. This class implements both of these interfaces.</p>
+<p>To implement a thread pool in Java, first, an object of ExecutorService is created and a set of tasks is passed to it. ThreadPoolExecutor class allows users to set the core and maximum pool size. The requests that are supposed to be run by a particular thread are then executed sequentially.</p>
+<p><strong>Following are the methods used to create a thread pool and set the number of threads:</strong></p>
+<ul>
+<li>newFixedThreadPool(int): It creates a fixed-size thread pool.</li>
+<li>newCachedThreadPool(): It creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available</li>
+<li>newSingleThreadExecutor() : It generates a single thread.</li>
+</ul>
+<p>While implementing a fixed thread pool, if all threads are currently run by the executor then all the pending requests are then placed in a queue and are executed when a thread is free.</p>
+<p>The code mentioned below demonstrates a basic example of a thread pool executor with FixedThreadPool.</p>
+<p><strong>These steps are to be followed:</strong></p>
+<ol>
+<li>Create a Runnable Object (request) to be executed</li>
+<li>Create an Executor Pool using Executors</li>
+<li>Pass the requests to the Executor Pool</li>
+<li>Lastly, shutdown the Executor Pool</li>
+</ol>
+<pre>1.import java.text.SimpleDateFormat;
+2.import java.util.Date;
+3.import java.util.concurrent.ExecutorService;
+4.import java.util.concurrent.Executors;
+5.
+6. // Step 1 : Create a Runnable Object (request) to be executed
+7. class Task01 implements Runnable  
+8. {
+9.    private String str;
+10.
+11.    public myTask(String s)
+12.    {
+13.        str = s;
+14.    }    
+15.    // Prints myTask str and sleeps for 1s
+16    // This Whole process will be repeated 3 times
+17.    public void run()
+18.    {
+19.        try
+20.        {
+21            for (int i = 0; i&lt;=3; i++)
+22.            {
+23.                if (i==0)
+24.                {
+25.                    Date d = new Date();
+26.                    SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss");
+27.                    System.out.println("starting Time for"
+28.                            + " task: "+ str +" = " +ft.format(d));  
+29.                    //prints the starting time for every task
+30.                }
+31.                else
+32.                {
+33.                    Date d = new Date();
+34.                    SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss");
+35.                    System.out.println("Execution Time for task: "+
+36.                            str +" = " +ft.format(d));  
+37.                    // prints the completion time of every task
+38.                }
+39.                Thread.sleep(5000);
+40.            }
+41.            System.out.println(str+" done");
+42.        }
+43.      catch(InterruptedException e)
+44.        {
+45.            e.printStackTrace();
+46.        }
+47.    }
+48. }
+49.public class myTest
+50.{
+51.    // Maximum number of threads in thread pool
+52.    static final int MAX_T = 3;            
+53.    public static void main(String[] args)
+54.    {
+55.        // creates 3 tasks
+56.        Runnable rn01 = new myTask("task 1");
+57.        Runnable rn02 = new myTask("task 2");
+58.        Runnable rn03 = new myTask("task 3");
+59.        // Now, Step 2: Create an Executor Pool using Executors
+60.        ExecutorService myPool = Executors.newFixedThreadPool(MAX_T); 
+61.        // Step: 3 Pass all the requests (runnable tasks) to the Executor Pool
+62.        myPool.execute(rn01);
+63.        myPool.execute(rn02);
+64.        myPool.execute(rn03);
+65.        // Step: 4 Shutdown Pool
+66.        myPool.shutdown();   
+67.    }
+68. }</pre>
+<p><strong>Output:</strong></p>
+<pre>Starting Time for task: task 1 = 01:12:46
+Starting Time for task: task 3 = 01:12:46
+Starting Time for task: task 2 = 01:12:46
+Execution Time for task: task 1 = 01:12:46
+Execution Time for task: task 2 = 01:12:46
+Execution Time for task: task 3 = 01:12:46
+Execution Time for task: task 1 = 01:12:46
+Execution Time for task: task 2 = 01:12:46
+Execution Time for task: task 3 = 01:12:46
+Execution Time for task: task 1 = 01:12:46
+Execution Time for task: task 2 = 01:12:46
+Execution Time for task: task 3 = 01:12:46
+task 1 done
+task 2 done
+task 3 done</pre>
+<p>One of the main benefits of using this approach of Java pool thread is when you have to process a large number of requests at a time, for instance, 100 requests but you obviously would not want to create 100 Threads, to reduce the JVM load and prevent it from running out of memory. You can use this approach to create a Thread Pool of 10 Threads and you can submit the 100 requests to this Thread Pool.</p>
+<p>The Thread Pool will create a maximum of 10 threads to process 10 requests at a time.  Till then the remaining 90 requests will be placed in a queue. After completion of any single Thread, Java Thread Pool will internally allocate the 11th request to the available Thread. This will keep on going until all the remaining requests are executed.</p>
+<h2><span class="ez-toc-section" id="Risks_associated_with_using_Java_thread_pool"></span>Risks associated with using Java thread pool<span class="ez-toc-section-end"></span></h2>
+<p>Despite its efficiency, there are certain risks involved.</p>
+<h3><span class="ez-toc-section" id="%C2%B7_Occurrence_of_a_deadlock"></span>· Occurrence of a deadlock:<span class="ez-toc-section-end"></span></h3>
+<p>Just like a deadlock can occur in any multi-threaded program, a thread pool can also introduce a case of deadlock. It occurs when all executing threads are requested simultaneously and start waiting for the results from a blocked thread that is waiting in the queue due to the unavailability of threads for execution. It will create a sort of overlap, which becomes difficult to resolve.</p>
+<p>There is no certain way of preventing deadlocks all the time. One technique is to avoid situations that may lead to deadlocks, like sharing resources or locking exclusively. If that is not possible or deadlocks are not very obvious, consider proper code hygiene. You must also monitor the thread pool and avoid any indefinite blocking.</p>
+<h3><span class="ez-toc-section" id="%C2%B7_Thread_leaking_out_of_thread_pool"></span>· Thread leaking out of thread pool:<span class="ez-toc-section-end"></span></h3>
+<p>Thread Leakage could happen when a thread is removed from the thread pool to execute a request but is not returned to it when the request is executed. It can occur in various situations, for instance, if a thread throws an exception that the pool class does not catch, then the thread will just exit, reducing the number of threads in the pool by one. If this happens multiple times, the thread pool would eventually become empty and no threads would be available to execute the remaining requests.</p>
+<p>You can prevent thread leakage by monitoring the pool and making sure the number of threads remains constant. If you find the number of threads is decreasing, identify the problem such as a wrong exception, and correct it as soon as possible.</p>
+<h3><span class="ez-toc-section" id="%C2%B7_Resources_thrashing"></span>· Resources thrashing:<span class="ez-toc-section-end"></span></h3>
+<p>If the size of a thread pool is significantly large then it will also take relatively more time in switching between threads. This will waste a lot of time and having more threads than a limited number of threads may cause starvation problems which can lead to resource thrashing or shortage of resources.</p>
+<p>It can be easily avoided if you just, keep the number of threads in a pool at a limit and only create the number of threads that can get execute all the requests.</p>
+<p>See Also: <a href="https://xperti.io/blogs/parsers-in-java-writing/">Writing a Parser In Java</a></p>
+<h2><span class="ez-toc-section" id="Conclusion"></span>Conclusion<span class="ez-toc-section-end"></span></h2>
+<p>We have discussed some basics of thread pool in Java, why do we need it, how to implement a thread pool in Java and what risks are involved. Java thread pools are an extremely useful tool for organizing server applications as it makes them stable and prevents any excessive use of resources. Despite the risks involved, it can improve your application to a great extent.</p>
+<p><a href="https://xperti.io/jobs/"><img class="aligncenter wp-image-3394 size-full" src="https://xperti.io/blogs/wp-content/uploads/2022/04/CTABanner2.3.png" alt="new Java jobs" width="710" height="172" srcset="https://xperti.io/blogs/wp-content/uploads/2022/04/CTABanner2.3.png 710w, https://xperti.io/blogs/wp-content/uploads/2022/04/CTABanner2.3-300x73.png 300w" sizes="(max-width: 710px) 100vw, 710px" /></a></p>
+				
+		</div><!-- .post-content -->
+		
+		<div class="the-post-foot cf">
+		
+						
+	
+			<div class="tag-share cf">
+
+				
+					<div class="post-tags"><a href="https://xperti.io/blogs/tag/thread-pool-java/" rel="tag">thread pool java</a><a href="https://xperti.io/blogs/tag/thread-pools-java/" rel="tag">thread pools java</a></div>				
+								
+						<div class="post-share">
+					
+						
+			<div class="post-share-icons cf">
+			
+				<span class="counters">
+
+													
+		<a href="#" class="likes-count fa fa-heart-o" data-id="2934" title=""><span class="number">0</span></a>
+		
+												
+				</span>
+
+								
+					<a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F" class="link facebook" target="_blank" title="Share on Facebook"><i class="fa fa-facebook"></i></a>
+						
+								
+					<a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F&#038;text=Introduction%20To%20Thread%20Pools%20In%20Java" class="link twitter" target="_blank" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
+						
+								
+					<a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F&#038;media=https%3A%2F%2Fxperti.io%2Fblogs%2Fwp-content%2Fuploads%2F2021%2F09%2FXblog-ThreadPools.png&#038;description=Introduction%20To%20Thread%20Pools%20In%20Java" class="link pinterest" target="_blank" title="Pinterest"><i class="fa fa-pinterest-p"></i></a>
+						
+								
+					<a href="mailto:?subject=Introduction%20To%20Thread%20Pools%20In%20Java&#038;body=https%3A%2F%2Fxperti.io%2Fblogs%2Fthread-pools-java-introduction%2F" class="link email" target="_blank" title="Email"><i class="fa fa-envelope-o"></i></a>
+						
+									
+								
+			</div>
+			
+						
+		</div>					
+			</div>
+			
+		</div>
+		
+				
+				<div class="author-box">
+	
+		<div class="image"><img alt='' src='https://secure.gravatar.com/avatar/4751ee9fa96ae3c6482bc63f733e5827?s=82&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/4751ee9fa96ae3c6482bc63f733e5827?s=164&#038;d=mm&#038;r=g 2x' class='avatar avatar-82 photo' height='82' width='82' /></div>
+		
+		<div class="content">
+		
+			<span class="author">
+				<span>Author</span>
+				<a href="https://xperti.io/blogs/author/shaharyar-lalani/" title="Posts by Shaharyar Lalani" rel="author">Shaharyar Lalani</a>			</span>
+			
+			<p class="text author-bio">Shaharyar Lalani is a developer with a strong interest in business analysis, project management, and UX design. He writes and teaches extensively on themes current in the world of web and app development, especially in Java technology.</p>
+			
+			<ul class="social-icons">
+							
+				<li>
+					<a href="https://xperti.io/" class="fa fa-home" title="Website"> 
+						<span class="visuallyhidden">Website</span></a>				
+				</li>
+				
+				
+						</ul>
+			
+		</div>
+		
+	</div>			
+				
+		
+		
+<div class="post-nav">
+
+
+	<div class="post previous cf">
+		<a href="https://xperti.io/blogs/out-of-memory-error-exception-in-java/" title="Prev Post" class="nav-icon">
+			<i class="fa fa-angle-left"></i>
+		</a>
+		
+		<span class="content">
+			
+			<a href="https://xperti.io/blogs/out-of-memory-error-exception-in-java/" class="image-link">
+				<img width="150" height="150" src="https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-Outofmemory-150x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="out of memory error java" srcset="https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-Outofmemory-150x150.png 150w, https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-Outofmemory-300x300.png 300w, https://xperti.io/blogs/wp-content/uploads/2021/09/Xblog-Outofmemory-370x370.png 370w" sizes="(max-width: 150px) 100vw, 150px" />			</a>
+			
+			<div class="post-meta">
+				<span class="label">Prev Post</span>
+			
+					<div class="post-meta post-meta-b">
+		
+			
+		
+					
+			
+			<h2 class="post-title">
+							
+				<a href="https://xperti.io/blogs/out-of-memory-error-exception-in-java/">Understand The “Out Of Memory Error” Exception In Java</a>
+					
+							</h2>
+			
+				
+		<div class="below">
+		
+							<a href="https://xperti.io/blogs/out-of-memory-error-exception-in-java/" class="date-link"><time class="post-date" datetime="2021-09-07T16:35:19+00:00">September 7, 2021</time></a>
+						
+			<span class="meta-sep"></span>
+			
+					
+		</div>
+		
+	</div>			</div>
+		</span>
+	</div>
+		
+	
+
+
+	<div class="post next cf">
+		<a href="https://xperti.io/blogs/java-machine-learning-tools-and-libraries/" title="Next Post" class="nav-icon">
+			<i class="fa fa-angle-right"></i>
+		</a>
+		
+		<span class="content">
+			
+			<a href="https://xperti.io/blogs/java-machine-learning-tools-and-libraries/" class="image-link">
+				<img width="150" height="150" src="https://xperti.io/blogs/wp-content/uploads/2021/09/xblog-10MLTOOLS-1-150x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="machine learning with java" srcset="https://xperti.io/blogs/wp-content/uploads/2021/09/xblog-10MLTOOLS-1-150x150.png 150w, https://xperti.io/blogs/wp-content/uploads/2021/09/xblog-10MLTOOLS-1-300x300.png 300w, https://xperti.io/blogs/wp-content/uploads/2021/09/xblog-10MLTOOLS-1-370x370.png 370w" sizes="(max-width: 150px) 100vw, 150px" />			</a>
+			
+			<div class="post-meta">
+				<span class="label">Next Post</span>
+				
+					<div class="post-meta post-meta-b">
+		
+			
+		
+					
+			
+			<h2 class="post-title">
+							
+				<a href="https://xperti.io/blogs/java-machine-learning-tools-and-libraries/">Top 10 Java Machine Learning Tools And Libraries</a>
+					
+							</h2>
+			
+				
+		<div class="below">
+		
+							<a href="https://xperti.io/blogs/java-machine-learning-tools-and-libraries/" class="date-link"><time class="post-date" datetime="2021-09-16T12:13:30+00:00">September 16, 2021</time></a>
+						
+			<span class="meta-sep"></span>
+			
+					
+		</div>
+		
+	</div>			</div>
+		</span>
+	</div>
+		
+	
+</div>		
+		
+
+<section class="related-posts grid-3">
+
+	<h4 class="section-head"><span class="title">Related Posts</span></h4> 
+	
+	<div class="ts-row posts cf">
+	
+			<article class="post col-4">
+					
+			<a href="https://xperti.io/blogs/javalin-framework-for-java/" title="Introduction To Javalin framework: A Lightweight Web Framework For Java" class="image-link">
+				<img width="270" height="180" src="https://xperti.io/blogs/wp-content/uploads/2022/06/Javalin-270x180.png" class="image wp-post-image" alt="Javalin" title="Introduction To Javalin framework: A Lightweight Web Framework For Java" srcset="https://xperti.io/blogs/wp-content/uploads/2022/06/Javalin-270x180.png 270w, https://xperti.io/blogs/wp-content/uploads/2022/06/Javalin-770x515.png 770w" sizes="(max-width: 270px) 100vw, 270px" />			</a>
+			
+			<div class="content">
+				
+				<h3 class="post-title"><a href="https://xperti.io/blogs/javalin-framework-for-java/" class="post-link">Introduction To Javalin framework: A Lightweight Web Framework For Java</a></h3>
+
+				<div class="post-meta">
+					<time class="post-date" datetime="2022-06-30T14:18:02+00:00">June 30, 2022</time>
+				</div>
+			
+			</div>
+
+		</article >
+		
+			<article class="post col-4">
+					
+			<a href="https://xperti.io/blogs/java-vs-python-comparison/" title="Building AI: Java Vs Python" class="image-link">
+				<img width="270" height="180" src="https://xperti.io/blogs/wp-content/uploads/2022/06/java-vs-python-270x180.png" class="image wp-post-image" alt="java vs python" title="Building AI: Java Vs Python" srcset="https://xperti.io/blogs/wp-content/uploads/2022/06/java-vs-python-270x180.png 270w, https://xperti.io/blogs/wp-content/uploads/2022/06/java-vs-python-770x515.png 770w" sizes="(max-width: 270px) 100vw, 270px" />			</a>
+			
+			<div class="content">
+				
+				<h3 class="post-title"><a href="https://xperti.io/blogs/java-vs-python-comparison/" class="post-link">Building AI: Java Vs Python</a></h3>
+
+				<div class="post-meta">
+					<time class="post-date" datetime="2022-06-29T11:02:13+00:00">June 29, 2022</time>
+				</div>
+			
+			</div>
+
+		</article >
+		
+			<article class="post col-4">
+					
+			<a href="https://xperti.io/blogs/recruiting-developers/" title="Recruiting Developers &#8211; Why Finding the Right People Is So Important" class="image-link">
+				<img width="270" height="180" src="https://xperti.io/blogs/wp-content/uploads/2022/06/Xblog-RecruitingDevelopers-270x180.png" class="image wp-post-image" alt="recruiting-developers" title="Recruiting Developers &#8211; Why Finding the Right People Is So Important" srcset="https://xperti.io/blogs/wp-content/uploads/2022/06/Xblog-RecruitingDevelopers-270x180.png 270w, https://xperti.io/blogs/wp-content/uploads/2022/06/Xblog-RecruitingDevelopers-770x515.png 770w" sizes="(max-width: 270px) 100vw, 270px" />			</a>
+			
+			<div class="content">
+				
+				<h3 class="post-title"><a href="https://xperti.io/blogs/recruiting-developers/" class="post-link">Recruiting Developers &#8211; Why Finding the Right People Is So Important</a></h3>
+
+				<div class="post-meta">
+					<time class="post-date" datetime="2022-06-21T15:38:28+00:00">June 21, 2022</time>
+				</div>
+			
+			</div>
+
+		</article >
+		
+		
+	</div>
+	
+</section>
+
+		
+		<div class="comments">
+				<div id="comments" class="comments-area">
+
+		
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title"><span class="section-head"><span class="title">Write A Comment</span></span> <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blogs/thread-pools-java-introduction/#respond" style="display:none;">Cancel Reply</a></small></h3><form action="https://xperti.io/blogs/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+			<div class="inline-field"> 
+				<input name="author" id="author" type="text" value="" aria-required="true" placeholder="Name" required />
+			</div>
+
+			<div class="inline-field"> 
+				<input name="email" id="email" type="text" value="" aria-required="true" placeholder="Email" required />
+			</div>
+		
+
+			<div class="inline-field"> 
+				<input name="url" id="url" type="text" value="" placeholder="Website" />
+			</div>
+		
+
+			<div class="reply-field cf">
+				<textarea name="comment" id="comment" cols="45" rows="7" placeholder="Enter your comment here.." aria-required="true" required></textarea>
+			</div>
+	
+			<p class="comment-form-cookies-consent">
+				<input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" />
+				<label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.
+				</label>
+			</p>
+<p class="form-submit"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='2934' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p></form>	</div><!-- #respond -->
+	
+	</div><!-- #comments -->
+		</div>		
+</article> <!-- .the-post -->	
+			
+		</div>
+		
+			<aside class="col-4 sidebar" data-sticky="1">
+		
+		<div class="inner theiaStickySidebar">
+		
+					<ul>
+				<li id="search-2" class="widget widget_search">
+	
+	<form method="get" class="search-form" action="https://xperti.io/blogs/">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="Type and hit enter..." value="" name="s" title="Search for:" />
+		</label>
+		<button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+	</form>
+
+</li>
+		<li id="recent-posts-2" class="widget widget_recent_entries">		<h5 class="widget-title"><span>Recent Posts</span></h5>		<ul>
+											<li>
+					<a href="https://xperti.io/blogs/javalin-framework-for-java/">Introduction To Javalin framework: A Lightweight Web Framework For Java</a>
+									</li>
+											<li>
+					<a href="https://xperti.io/blogs/java-vs-python-comparison/">Building AI: Java Vs Python</a>
+									</li>
+											<li>
+					<a href="https://xperti.io/blogs/recruiting-developers/">Recruiting Developers &#8211; Why Finding the Right People Is So Important</a>
+									</li>
+											<li>
+					<a href="https://xperti.io/blogs/project-loom-java/">Project Loom: Understand The New Java Concurrency Model</a>
+									</li>
+											<li>
+					<a href="https://xperti.io/blogs/java-inline-classes-introduction/">An Introduction To Inline Classes In Java</a>
+									</li>
+					</ul>
+		</li>
+<li id="archives-2" class="widget widget_archive"><h5 class="widget-title"><span>Archives</span></h5>		<ul>
+				<li><a href='https://xperti.io/blogs/2022/06/'>June 2022</a></li>
+	<li><a href='https://xperti.io/blogs/2022/05/'>May 2022</a></li>
+	<li><a href='https://xperti.io/blogs/2022/04/'>April 2022</a></li>
+	<li><a href='https://xperti.io/blogs/2022/03/'>March 2022</a></li>
+	<li><a href='https://xperti.io/blogs/2022/02/'>February 2022</a></li>
+	<li><a href='https://xperti.io/blogs/2022/01/'>January 2022</a></li>
+	<li><a href='https://xperti.io/blogs/2021/12/'>December 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/11/'>November 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/10/'>October 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/09/'>September 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/08/'>August 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/07/'>July 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/06/'>June 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/05/'>May 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/04/'>April 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/03/'>March 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/02/'>February 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2021/01/'>January 2021</a></li>
+	<li><a href='https://xperti.io/blogs/2020/12/'>December 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/11/'>November 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/10/'>October 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/09/'>September 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/08/'>August 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/07/'>July 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/06/'>June 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/05/'>May 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/04/'>April 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/03/'>March 2020</a></li>
+	<li><a href='https://xperti.io/blogs/2020/02/'>February 2020</a></li>
+		</ul>
+			</li>
+<li id="categories-2" class="widget widget_categories"><h5 class="widget-title"><span>Categories</span></h5>		<ul>
+				<li class="cat-item cat-item-162"><a href="https://xperti.io/blogs/category/all-blog/">All blog</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://xperti.io/blogs/category/articles/">Articles</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://xperti.io/blogs/category/blog/">Blog</a>
+</li>
+	<li class="cat-item cat-item-350"><a href="https://xperti.io/blogs/category/dating-tips/">Dating Tips</a>
+</li>
+	<li class="cat-item cat-item-161"><a href="https://xperti.io/blogs/category/java/">Java</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://xperti.io/blogs/category/press-release/" title="Find Xperti Press Release here for Further Launches and Updates.">Press Release</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://xperti.io/blogs/category/uncategorized/">Uncategorized</a>
+</li>
+		</ul>
+			</li>
+<li id="bunyad-widget-social-1" class="widget widget-social">		
+							
+				<h5 class="widget-title"><span>Connect &amp; Follow</span></h5>				
+					
+			<div class="social-icons">
+				
+									<a href="http://www.facebook.com/xperti.io/" class="social-link" target="_blank"><i class="fa fa-facebook"></i>
+						<span class="visuallyhidden">Facebook</span></a>
+				
+									<a href="http://www.twitter.com/xperti1/%20" class="social-link" target="_blank"><i class="fa fa-twitter"></i>
+						<span class="visuallyhidden">Twitter</span></a>
+				
+									<a href="http://www.instagram.com/xperti.io/" class="social-link" target="_blank"><i class="fa fa-instagram"></i>
+						<span class="visuallyhidden">Instagram</span></a>
+				
+									<a href="http://www.linkedin.com/company/xperti/" class="social-link" target="_blank"><i class="fa fa-linkedin"></i>
+						<span class="visuallyhidden">LinkedIn</span></a>
+				
+								
+			</div>
+		
+		</li>
+
+		<li id="bunyad-widget-subscribe-1" class="widget widget-subscribe">
+							
+				<h5 class="widget-title"><span>Newsletter</span></h5>				
+						
+			<form method="post" action="https://xperti.us4.list-manage.com/subscribe/post?u=1ab86bcc4f9a7003d7fee11e7&#038;id=50bf679e39" class="form" target="_blank">
+				<div class="fields">
+					<p class="message">
+						Subscribe to newsletter now!					</p>
+					
+					<p>
+						<input type="email" name="EMAIL" placeholder="Your email address.." required>
+					</p>
+					
+					<p>
+						<input type="submit" value="Subscribe">
+					</p>
+				</div>
+			</form>
+
+		
+		</li>
+		
+					
+		<li id="bunyad-widget-twitter-3" class="widget widget-twitter">
+		<h5 class="widget-title"><span>Check Our Tweets</span></h5>		
+		<div class="tweets">
+		
+							
+
+				
+				<ul>
+								
+					<li class="tweet">
+						<p class="text">Be a patriot this 4th of July; remember, we owe this freedom to those who fought for it.
+
+<a href="https://twitter.com/search?q=Xperti" target="_blank">#Xperti</a>… <a href="https://t.co/3eEazXgu1T" target="_blank">https://t.co/3eEazXgu1T</a></p>
+						<div class="meta">
+							<a href="https://twitter.com/intent/tweet?in_reply_to=1543831936828936195" target="_blank" title="Reply"><i class="fa fa-reply"></i></a>
+								
+							<a href="https://twitter.com/intent/retweet?tweet_id=1543831936828936195" target="_blank" title="Retweet"><i class="fa fa-retweet"></i></a>
+								
+							<a href="https://twitter.com/intent/like?tweet_id=1543831936828936195" target="_blank" title="Like"><i class="fa fa-heart"></i></a>
+								
+							<a href="https://twitter.com/Xperti1/status/1543831936828936195" class="date" target="_blank">2 days</a>
+						</div>
+					</li>
+				
+								
+					<li class="tweet">
+						<p class="text">Xperti is urgently looking for the following job roles for its clients.
+
+Apply Now: <a href="https://t.co/piigjAMYno…" target="_blank">https://t.co/piigjAMYno…</a> <a href="https://t.co/KI4HNe46t0" target="_blank">https://t.co/KI4HNe46t0</a></p>
+						<div class="meta">
+							<a href="https://twitter.com/intent/tweet?in_reply_to=1543623521787584512" target="_blank" title="Reply"><i class="fa fa-reply"></i></a>
+								
+							<a href="https://twitter.com/intent/retweet?tweet_id=1543623521787584512" target="_blank" title="Retweet"><i class="fa fa-retweet"></i></a>
+								
+							<a href="https://twitter.com/intent/like?tweet_id=1543623521787584512" target="_blank" title="Like"><i class="fa fa-heart"></i></a>
+								
+							<a href="https://twitter.com/Xperti1/status/1543623521787584512" class="date" target="_blank">3 days</a>
+						</div>
+					</li>
+				
+								
+					<li class="tweet">
+						<p class="text">Find out what a front-end java developer with 6 years of experience was looking for in his next job? He was hired i… <a href="https://t.co/qx2lIkZe2f" target="_blank">https://t.co/qx2lIkZe2f</a></p>
+						<div class="meta">
+							<a href="https://twitter.com/intent/tweet?in_reply_to=1542874366463119362" target="_blank" title="Reply"><i class="fa fa-reply"></i></a>
+								
+							<a href="https://twitter.com/intent/retweet?tweet_id=1542874366463119362" target="_blank" title="Retweet"><i class="fa fa-retweet"></i></a>
+								
+							<a href="https://twitter.com/intent/like?tweet_id=1542874366463119362" target="_blank" title="Like"><i class="fa fa-heart"></i></a>
+								
+							<a href="https://twitter.com/Xperti1/status/1542874366463119362" class="date" target="_blank">5 days</a>
+						</div>
+					</li>
+				
+								</ul>
+				
+				<div><a href="https://twitter.com/Xperti1" class="follow" title="Follow on twitter">@Xperti1</a></div>
+				
+						
+		</div>
+		
+		</li>
+	
+		
+		<li id="bunyad-posts-widget-1" class="widget widget-posts">		
+							
+				<h5 class="widget-title"><span>Latest Posts</span></h5>				
+						
+			<ul class="posts cf large">
+						
+								
+				<li class="post cf">
+				
+										
+					<a href="https://xperti.io/blogs/javalin-framework-for-java/" class="image-link">
+						<img width="150" height="150" src="https://xperti.io/blogs/wp-content/uploads/2022/06/Javalin-150x150.png" class="attachment-cheerup-thumb-alt size-cheerup-thumb-alt wp-post-image" alt="Javalin" title="Introduction To Javalin framework: A Lightweight Web Framework For Java" srcset="https://xperti.io/blogs/wp-content/uploads/2022/06/Javalin-150x150.png 150w, https://xperti.io/blogs/wp-content/uploads/2022/06/Javalin-300x300.png 300w, https://xperti.io/blogs/wp-content/uploads/2022/06/Javalin-370x370.png 370w" sizes="(max-width: 150px) 100vw, 150px" />					</a>
+
+										
+					<div class="content">
+						
+											
+					
+						<a href="https://xperti.io/blogs/javalin-framework-for-java/" class="post-title" title="Introduction To Javalin framework: A Lightweight Web Framework For Java">Introduction To Javalin framework: A Lightweight Web Framework For Java</a>
+						
+							
+														<div class="post-meta post-meta-a">
+		
+					
+					<a href="https://xperti.io/blogs/javalin-framework-for-java/" class="date-link"><time class="post-date" datetime="2022-06-30T14:18:02+00:00">June 30, 2022</time></a>
+				
+		
+	</div>												
+							
+												
+					</div>
+				
+				</li>
+				
+								
+						
+								
+				<li class="post cf">
+				
+										
+					<a href="https://xperti.io/blogs/java-vs-python-comparison/" class="image-link">
+						<img width="150" height="150" src="https://xperti.io/blogs/wp-content/uploads/2022/06/java-vs-python-150x150.png" class="attachment-cheerup-thumb-alt size-cheerup-thumb-alt wp-post-image" alt="java vs python" title="Building AI: Java Vs Python" srcset="https://xperti.io/blogs/wp-content/uploads/2022/06/java-vs-python-150x150.png 150w, https://xperti.io/blogs/wp-content/uploads/2022/06/java-vs-python-300x300.png 300w, https://xperti.io/blogs/wp-content/uploads/2022/06/java-vs-python-370x370.png 370w" sizes="(max-width: 150px) 100vw, 150px" />					</a>
+
+										
+					<div class="content">
+						
+											
+					
+						<a href="https://xperti.io/blogs/java-vs-python-comparison/" class="post-title" title="Building AI: Java Vs Python">Building AI: Java Vs Python</a>
+						
+							
+														<div class="post-meta post-meta-a">
+		
+					
+					<a href="https://xperti.io/blogs/java-vs-python-comparison/" class="date-link"><time class="post-date" datetime="2022-06-29T11:02:13+00:00">June 29, 2022</time></a>
+				
+		
+	</div>												
+							
+												
+					</div>
+				
+				</li>
+				
+								
+						
+								
+				<li class="post cf">
+				
+										
+					<a href="https://xperti.io/blogs/recruiting-developers/" class="image-link">
+						<img width="150" height="150" src="https://xperti.io/blogs/wp-content/uploads/2022/06/Xblog-RecruitingDevelopers-150x150.png" class="attachment-cheerup-thumb-alt size-cheerup-thumb-alt wp-post-image" alt="recruiting-developers" title="Recruiting Developers &#8211; Why Finding the Right People Is So Important" srcset="https://xperti.io/blogs/wp-content/uploads/2022/06/Xblog-RecruitingDevelopers-150x150.png 150w, https://xperti.io/blogs/wp-content/uploads/2022/06/Xblog-RecruitingDevelopers-300x300.png 300w, https://xperti.io/blogs/wp-content/uploads/2022/06/Xblog-RecruitingDevelopers-370x370.png 370w" sizes="(max-width: 150px) 100vw, 150px" />					</a>
+
+										
+					<div class="content">
+						
+											
+					
+						<a href="https://xperti.io/blogs/recruiting-developers/" class="post-title" title="Recruiting Developers &#8211; Why Finding the Right People Is So Important">Recruiting Developers &#8211; Why Finding the Right People Is So Important</a>
+						
+							
+														<div class="post-meta post-meta-a">
+		
+					
+					<a href="https://xperti.io/blogs/recruiting-developers/" class="date-link"><time class="post-date" datetime="2022-06-21T15:38:28+00:00">June 21, 2022</time></a>
+				
+		
+	</div>												
+							
+												
+					</div>
+				
+				</li>
+				
+								
+						
+								
+				<li class="post cf">
+				
+										
+					<a href="https://xperti.io/blogs/project-loom-java/" class="image-link">
+						<img width="150" height="150" src="https://xperti.io/blogs/wp-content/uploads/2022/06/Project-Loom-150x150.jpg" class="attachment-cheerup-thumb-alt size-cheerup-thumb-alt wp-post-image" alt="java project loom" title="Project Loom: Understand The New Java Concurrency Model" srcset="https://xperti.io/blogs/wp-content/uploads/2022/06/Project-Loom-150x150.jpg 150w, https://xperti.io/blogs/wp-content/uploads/2022/06/Project-Loom-300x300.jpg 300w, https://xperti.io/blogs/wp-content/uploads/2022/06/Project-Loom-370x370.jpg 370w" sizes="(max-width: 150px) 100vw, 150px" />					</a>
+
+										
+					<div class="content">
+						
+											
+					
+						<a href="https://xperti.io/blogs/project-loom-java/" class="post-title" title="Project Loom: Understand The New Java Concurrency Model">Project Loom: Understand The New Java Concurrency Model</a>
+						
+							
+														<div class="post-meta post-meta-a">
+		
+					
+					<a href="https://xperti.io/blogs/project-loom-java/" class="date-link"><time class="post-date" datetime="2022-06-17T11:07:46+00:00">June 17, 2022</time></a>
+				
+		
+	</div>												
+							
+												
+					</div>
+				
+				</li>
+				
+								
+						</ul>
+		
+		</li>
+		
+		<li id="wpzoom_instagram_widget-2" class="widget zoom-instagram-widget"><h5 class="widget-title"><span>Instagram</span></h5>&#8230;</li>
+<li id="categories-3" class="widget widget_categories"><h5 class="widget-title"><span>Categories</span></h5>		<ul>
+				<li class="cat-item cat-item-162"><a href="https://xperti.io/blogs/category/all-blog/">All blog</a> (2)
+</li>
+	<li class="cat-item cat-item-3"><a href="https://xperti.io/blogs/category/articles/">Articles</a> (2)
+</li>
+	<li class="cat-item cat-item-4"><a href="https://xperti.io/blogs/category/blog/">Blog</a> (159)
+</li>
+	<li class="cat-item cat-item-350"><a href="https://xperti.io/blogs/category/dating-tips/">Dating Tips</a> (1)
+</li>
+	<li class="cat-item cat-item-161"><a href="https://xperti.io/blogs/category/java/">Java</a> (3)
+</li>
+	<li class="cat-item cat-item-5"><a href="https://xperti.io/blogs/category/press-release/" title="Find Xperti Press Release here for Further Launches and Updates.">Press Release</a> (3)
+</li>
+	<li class="cat-item cat-item-1"><a href="https://xperti.io/blogs/category/uncategorized/">Uncategorized</a> (1)
+</li>
+		</ul>
+			</li>
+			</ul>
+				
+		</div>
+
+	</aside>		
+	</div> <!-- .ts-row -->
+</div> <!-- .main -->
+
+﻿<footer>
+    <div class="container">
+        <div class="row">
+			<div class="col-md-6 col-sm-6">
+				<div class="footer-box">
+					<a class="footer-logo-white" href="https://xperti.io/"><img src="https://xperti.io/blogs/wp-content/themes/cheerup/assets/images/XpertiLogoWhite-01.png"></a>
+					<div class="margin-top-20">
+						<p class="margin-0 semi-bold">Get in touch</p>
+						<a href="mailto:info@Xperti.com">info@xperti.com</a>
+					</div>
+					<div class="margin-top-20">
+						<p class="margin-0 semi-bold">Contact Us</p>
+						<a class="margin-0" href="tel:+12134570534">Tel: +1 (213) 457-0534</a>
+					</div>
+					<div class="footer-social-icons">
+						<p class="margin-0 semi-bold">Follow Us</p>
+						<ul>
+							<li><a href="https://www.facebook.com/xperti.io/"><i class="fa fa-facebook-f"></i></a></li>
+							<li><a href="https://twitter.com/xperti1"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="https://www.instagram.com/xperti.io/"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="https://www.linkedin.com/company/xperti/"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+            <div class="col-md-3 col-sm-6">
+                <h5>Skillsets in demand</h5>
+				<div class="footer-links">
+					<a href="https://xperti.io/apply-as-an-xperti.php">Designers</a>
+					<a href="https://xperti.io/apply-as-an-xperti.php">Developers</a>
+					<a href="https://xperti.io/apply-as-an-xperti.php">Project Managers</a>
+					<a href="https://xperti.io/apply-as-an-xperti.php">Quality Assurance</a>
+					<a href="https://xperti.io/apply-as-an-xperti.php">Business Analysts</a>
+				</div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <h5>Quick links</h5>
+				<div class="footer-links">
+					<a href="https://xperti.io/clients.php">Employers</a>
+					<a href="https://xperti.io/experts.php">Job Seekers</a>
+					<!--<a href="https://xperti.io/job_listing.php">Careers</a>-->
+					<a href="https://xperti.io/faq.php">FAQ's</a>
+					<a href="https://xperti.io/blogs">Blogs</a>
+				</div>
+            </div>            
+        </div>
+    </div>
+</footer>
+
+<div class="footer-copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+				<div class="copyright-link">
+					<!-- <a href="">Sitemap</a> -->
+					<p>Copyright © 2022. All rights reserved by Xperti</p>
+					<a href="https://xperti.io/privacy-policy.php">Privacy Policy</a>
+					<!-- <a href="">Terms and Conditions</a>
+					<a href="">Brand Guidelines</a> -->
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+
+<!-- Latest compiled and minified JavaScript -->
+
+<script type="text/javascript" src='https://xperti.io/blogs/wp-content/themes/cheerup/assets/js/core.js'></script>
+
+<!-- slicknav js -->
+<script type="text/javascript" src='https://xperti.io/blogs/wp-content/themes/cheerup/assets/js/jqueryslicknavmin.js'></script>
+
+
+<!-- Dropdown -->
+
+<script type="text/javascript">
+    $('.myselect').select2({
+        selectOnClose: true
+    });
+</script>
+
+<script>
+    jQuery(function ($) {
+        $('#menu').slicknav({
+            label: '',
+            brand: "<a href='/'><img class='img-responsive' src='https://xperti.io/blogs/wp-content/themes/cheerup/assets/images/logo.jpg' alt='Logo' title='Logo' /></a>"
+        });
+		
+		if(window.location.href == 'https://xperti.io/blogs/'){
+			$( "<div class='main-banner'><img src='https://xperti.io/blogs/wp-content/themes/cheerup/assets/images/bannerimage.png' /></div>" ).insertBefore( ".main.wrap" );
+		}
+		
+    });
+</script>
+
+</html>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/xperti.io\/blogs\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=5.2'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/themes/cheerup/js/jquery.mfp-lightbox.js?ver=6.1.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var Bunyad = {"custom_ajax_url":"\/blogs\/thread-pools-java-introduction\/"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/themes/cheerup/js/bunyad-theme.js?ver=6.1.2'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/themes/cheerup/js/jquery.slick.js?ver=6.1.2'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/themes/cheerup/js/jarallax.js?ver=6.1.2'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/themes/cheerup/js/jquery.sticky-sidebar.js?ver=6.1.2'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-includes/js/comment-reply.min.js?ver=5.4.10'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-includes/js/wp-embed.min.js?ver=5.4.10'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/easy-table-of-contents/vendor/smooth-scroll/jquery.smooth-scroll.min.js?ver=2.2.0'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/easy-table-of-contents/vendor/js-cookie/js.cookie.min.js?ver=2.2.1'></script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/easy-table-of-contents/vendor/sticky-kit/jquery.sticky-kit.min.js?ver=1.9.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ezTOC = {"smooth_scroll":"1","visibility_hide_by_default":"","width":"auto","scroll_offset":"30"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/easy-table-of-contents/assets/js/front.min.js?ver=2.0.11-1594048026'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var aepc_pixel_events = {"custom_events":{"AdvancedEvents":[{"params":{"login_status":"not_logged_in","post_type":"post","object_id":2934,"object_type":"single","tax_category":["Blog"],"tax_post_tag":["thread pool java","thread pools java"]},"delay":0}]}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://xperti.io/blogs/wp-content/plugins/pixel-caffeine/build/frontend.js?ver=2.1.3'></script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+Completing this project will require writing the following Java classes:
+
+FCFS.java       
+SJF.java
+RR.java
+Priority.java
+PriorityRR.java
+
+Each of these classes must implement the Algorithm.java interface.
+
+The Program is run as follow:
+ java Driver FCFS book.txt
+ java Driver SJF book.txt
+ java Driver PRI book.txt
+ java Driver RR book.txt
+ java Driver PRI-RR book.txt
+ 
+The program change the book.txt as other txt, but the schedule of tasks has the form
+[task name][priority][CPU burst]
+T1, 4, 20
+T2, 2, 25
+T3, 3, 25
+T4, 3, 15
+T5, 10, 10
+
+More test schedule store in the test file.
+

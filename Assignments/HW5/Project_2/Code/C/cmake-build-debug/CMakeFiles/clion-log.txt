@@ -1,0 +1,13 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/eve/Desktop/CS7343_Operating_System_and_Software_System/Assignments/HW5/Project_2/Code/C -B /Users/eve/Desktop/CS7343_Operating_System_and_Software_System/Assignments/HW5/Project_2/Code/C/cmake-build-debug
+-- Configuring done
+CMake Error at CMakeLists.txt:6 (add_executable):
+  Cannot find source file:
+
+    test5.c
+
+
+CMake Error at CMakeLists.txt:6 (add_executable):
+  No SOURCES given to target: C
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

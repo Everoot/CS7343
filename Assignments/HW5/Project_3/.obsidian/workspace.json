@@ -1,0 +1,149 @@
+{
+  "main": {
+    "id": "3af4527902cc88b6",
+    "type": "split",
+    "children": [
+      {
+        "id": "17bfba3902a86dbd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e27dcee5dcadf39d",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6b470c2a20d722db",
+    "type": "split",
+    "children": [
+      {
+        "id": "927ebfcdbd616134",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "16af7733ce99c51a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "3022dd2cca1c3d65",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "3e3b7924eddbd286",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "341c50ceefe86a66",
+    "type": "split",
+    "children": [
+      {
+        "id": "51046183335422fa",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7523c9547c94331a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "bdc99fb5dbd28a41",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a288158e185cac02",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "67dd61bc0774dada",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "e27dcee5dcadf39d",
+  "lastOpenFiles": [
+    "Untitled.md",
+    "Untitled 1",
+    "Untitled",
+    "Project 3 The Dining-Philosophers Problem.md",
+    "Untitled.canvas"
+  ]
+}

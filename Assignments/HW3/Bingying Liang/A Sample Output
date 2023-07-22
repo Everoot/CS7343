@@ -1,0 +1,332 @@
+eve@Eves-Air src % javac Driver.java          
+eve@Eves-Air src % java Driver PRI-RR book.txt
+Priority with round-robin: 
+
+Will run Name: P5
+Tid: 4
+Priority: 10
+Burst: 10
+
+P5 has ran 10 and the remaining Burst is 0
+
+Task P5 finished
+
+-----------------------------------------------------------------
+Will run Name: P1
+Tid: 0
+Priority: 4
+Burst: 20
+
+P1 has ran 10 and the remaining Burst is 10
+
+----------------------------------------------------------------
+Will run Name: P1
+Tid: 0
+Priority: 4
+Burst: 10
+
+P1 has ran 10 and the remaining Burst is 0
+
+Task P1 finished
+
+-----------------------------------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 25
+
+P3 has ran 10 and the remaining Burst is 15
+
+----------------------------------------------------------------
+Will run Name: P4
+Tid: 3
+Priority: 3
+Burst: 15
+
+P4 has ran 10 and the remaining Burst is 5
+
+----------------------------------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 15
+
+P3 has ran 10 and the remaining Burst is 5
+
+----------------------------------------------------------------
+Will run Name: P4
+Tid: 3
+Priority: 3
+Burst: 5
+
+P4 has ran 5 and the remaining Burst is 0
+
+Task P4 finished
+
+-----------------------------------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 5
+
+P3 has ran 5 and the remaining Burst is 0
+
+Task P3 finished
+
+-----------------------------------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 25
+
+P2 has ran 10 and the remaining Burst is 15
+
+----------------------------------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 15
+
+P2 has ran 10 and the remaining Burst is 5
+
+----------------------------------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 5
+
+P2 has ran 5 and the remaining Burst is 0
+
+Task P2 finished
+
+-----------------------------------------------------------------
+eve@Eves-Air src % java Driver RR book.txt    
+Round-robin (RR) scheduling: 
+
+Will run Name: P1
+Tid: 0
+Priority: 4
+Burst: 20
+
+P1 has ran 10 and the remaining Burst is 10
+
+----------------------------------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 25
+
+P2 has ran 10 and the remaining Burst is 15
+
+----------------------------------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 25
+
+P3 has ran 10 and the remaining Burst is 15
+
+----------------------------------------------------------------
+Will run Name: P4
+Tid: 3
+Priority: 3
+Burst: 15
+
+P4 has ran 10 and the remaining Burst is 5
+
+----------------------------------------------------------------
+Will run Name: P5
+Tid: 4
+Priority: 10
+Burst: 10
+
+P5 has ran 10 and the remaining Burst is 0
+
+Task P5 finished
+
+-----------------------------------------------------------------
+Will run Name: P1
+Tid: 0
+Priority: 4
+Burst: 10
+
+P1 has ran 10 and the remaining Burst is 0
+
+Task P1 finished
+
+-----------------------------------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 15
+
+P2 has ran 10 and the remaining Burst is 5
+
+----------------------------------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 15
+
+P3 has ran 10 and the remaining Burst is 5
+
+----------------------------------------------------------------
+Will run Name: P4
+Tid: 3
+Priority: 3
+Burst: 5
+
+P4 has ran 5 and the remaining Burst is 0
+
+Task P4 finished
+
+-----------------------------------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 5
+
+P2 has ran 5 and the remaining Burst is 0
+
+Task P2 finished
+
+-----------------------------------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 5
+
+P3 has ran 5 and the remaining Burst is 0
+
+Task P3 finished
+
+-----------------------------------------------------------------
+eve@Eves-Air src % java Driver PRI book.txt   
+Priority scheling:
+Will run Name: P5
+Tid: 4
+Priority: 10
+Burst: 10
+
+Task P5 finished
+
+---------------------------------------
+Will run Name: P1
+Tid: 0
+Priority: 4
+Burst: 20
+
+Task P1 finished
+
+---------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 25
+
+Task P3 finished
+
+---------------------------------------
+Will run Name: P4
+Tid: 3
+Priority: 3
+Burst: 15
+
+Task P4 finished
+
+---------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 25
+
+Task P2 finished
+
+---------------------------------------
+eve@Eves-Air src % java Driver SJF book.txt   
+Shortest-job-first(SJF): 
+
+Will run Name: P5
+Tid: 4
+Priority: 10
+Burst: 10
+
+Task P5 finished
+
+---------------------------------------
+Will run Name: P4
+Tid: 3
+Priority: 3
+Burst: 15
+
+Task P4 finished
+
+---------------------------------------
+Will run Name: P1
+Tid: 0
+Priority: 4
+Burst: 20
+
+Task P1 finished
+
+---------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 25
+
+Task P2 finished
+
+---------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 25
+
+Task P3 finished
+
+---------------------------------------
+eve@Eves-Air src % java Driver FCFS book.txt  
+First-come, first-served(FCFS): 
+
+Will run Name: P1
+Tid: 0
+Priority: 4
+Burst: 20
+
+Task P1 finished.
+
+---------------------------------------
+Will run Name: P2
+Tid: 1
+Priority: 2
+Burst: 25
+
+Task P2 finished.
+
+---------------------------------------
+Will run Name: P3
+Tid: 2
+Priority: 3
+Burst: 25
+
+Task P3 finished.
+
+---------------------------------------
+Will run Name: P4
+Tid: 3
+Priority: 3
+Burst: 15
+
+Task P4 finished.
+
+---------------------------------------
+Will run Name: P5
+Tid: 4
+Priority: 10
+Burst: 10
+
+Task P5 finished.
+
+---------------------------------------
+eve@Eves-Air src % 

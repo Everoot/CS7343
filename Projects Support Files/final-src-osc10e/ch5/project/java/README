@@ -1,0 +1,13 @@
+Completing this project in writing the following Java classes:
+
+FCFS.java
+SJF.java
+RR.java
+Priority.java
+PriorityRR.java
+
+Each of these classes must implement the Algorithm.java interface.
+
+Java Driver FCFS schedule.txt
+
+
